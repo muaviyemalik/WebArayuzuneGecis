@@ -1,0 +1,51 @@
+﻿@model List<StokTakipWeb.Models.Ayakkabi>
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="text-center">
+    <h1 class="display-4">👟 Ayakkabı Deposu</h1>
+    <p>Güncel stok durumunu aşağıda görebilirsiniz.</p>
+</div>
+
+<div class="mb-3 text-end">
+    <a href="/Home/YeniEkle" class="btn btn-success">+ Yeni Ayakkabı Ekle</a>
+</div>
+
+<table class="table table-striped table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Model Adı</th>
+            <th>Numara</th>
+            <th>Renk</th>
+            <th>Fiyat</th>
+            <th>Stok Adedi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var urun in Model)
+        {
+            <tr>
+                <td>@urun.Ad</td>
+                <td>@urun.Numara</td>
+                <td>@urun.Renk</td>
+                <td>@urun.Fiyat ₺</td>
+                
+                @if(urun.StokAdedi < 3)
+                {
+                    <td class="text-danger fw-bold">@urun.StokAdedi (Kritik!)</td>
+                }
+                else
+                {
+                    <td class="text-success">@urun.StokAdedi</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-warning">Depoda henüz hiç ürün yok.</div>
+}
